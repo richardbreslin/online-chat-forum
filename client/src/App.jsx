@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Forum from "./forum";
 import Home from "./home";
 import Reactlist from "./reactlist";
+import LETSGO from "./LETSGO";
 
 class App extends Component {
   state = { users: [] };
@@ -15,6 +16,7 @@ class App extends Component {
           <Switch>
             <Route component={Forum} path="/forum" />
             <Route component={Reactlist} path="/reactlist" />
+            <Route component={LETSGO} path="/LETSGO" />
 
             {/* always keep root route last */}
             <Route component={Home} path="/" />

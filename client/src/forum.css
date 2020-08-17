@@ -1,0 +1,33 @@
+.forum {
+  background-color: grey;
+}
+#maincol2,
+#maincol {
+  /* border-style: solid; */
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+#maincol2 img {
+  max-width: 70%;
+  max-height: 70%;
+  border-style: double;
+}
+#maincol2 h3 {
+  background-color: red;
+  color: white;
+}
+#maincol2 p {
+  background-color: black;
+  color: white;
+}
+
+#posts {
+  border-style: solid;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+#formtext {
+  font-weight: bold;
+}

@@ -3,6 +3,8 @@ import Container from "react-bootstrap/Container";
 import Navbar from "./navbar";
 import Bgvideo from "./background-video";
 
+import "./home.css";
+
 class Home extends Component {
   state = { users: [] };
 

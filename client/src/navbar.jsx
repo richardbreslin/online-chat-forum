@@ -31,6 +31,7 @@ class navbar extends Component {
             {/* <Nav.Link href="">ipGrabber</Nav.Link>
             <Nav.Link href="">Proxy</Nav.Link> */}
             <Nav.Link href="/reactlist">reactList</Nav.Link>
+            <Nav.Link href="/LETSGO">LETS FUCKING GO 🔊</Nav.Link>
             <Nav.Link href="ts3server://vs20.tserverhq.com/?port=9008">
               <Button size="sm" variant="danger">
                 TEAMSPEAK

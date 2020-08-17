@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/cfa0ae71-e5f8-41aa-a6aa-10656e810f70/resourceGroups/badsquad/providers/Microsoft.Web/sites/badsquadapp",
+    "appService.deploySubpath": "."
 }
