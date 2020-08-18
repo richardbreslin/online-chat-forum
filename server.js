@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 const routes = require("./routes/api");
 
@@ -23,6 +22,8 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB Connected!");
 });
 
+app.use(express.static("./client/build/"));
+
 // rate limiter for posts
 const rateLimit = require("express-rate-limit");
 const apiLimiter = rateLimit({
@@ -35,4 +36,11 @@ app.use("/api/createpost", apiLimiter);
 app.use(morgan("tiny"));
 app.use("/api", routes);
 
+app.get("/*", (req, res) => {
+  res.sendFile("index.html", {
+    root: __dirname + "/client/build/",
+  });
+});
+
+const PORT = 3001;
 app.listen(PORT, console.log(`Server listening on port: ${PORT}`));

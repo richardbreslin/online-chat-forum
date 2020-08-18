@@ -30,10 +30,4 @@ router.get("/getposts", (req, res) => {
   });
 });
 
-// Serve static files from the React app
-router.use(express.static(path.join(__dirname, "/client/build")));
-router.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
 module.exports = router;

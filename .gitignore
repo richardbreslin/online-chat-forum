@@ -36,3 +36,6 @@ routes/index.js
 routes/users.js
 routes/index.js
 app.js
+views/error.jade
+views/index.jade
+views/layout.jade
