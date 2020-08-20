@@ -11,7 +11,7 @@ class navbar extends Component {
   render() {
     return (
       <>
-        <Navbar bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
           <Navbar.Brand href="/home">
             <img
               alt=""
@@ -22,24 +22,27 @@ class navbar extends Component {
             />{" "}
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="/">
-              <img src="/home.gif" alt="home" class="navHome"></img>
-            </Nav.Link>
-            <Nav.Link href="/forum">
-              <img src="/forum.gif" alt="forum" class="navForum"></img>
-            </Nav.Link>
-            {/* <Nav.Link href="">ipGrabber</Nav.Link>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav.Link href="/">
+                <img src="/home.gif" alt="home" class="navHome"></img>
+              </Nav.Link>
+              <Nav.Link href="/forum">
+                <img src="/forum.gif" alt="forum" class="navForum"></img>
+              </Nav.Link>
+              {/* <Nav.Link href="">ipGrabber</Nav.Link>
             <Nav.Link href="">Proxy</Nav.Link> */}
-            <Nav.Link href="/reactlist">reactList</Nav.Link>
-            <Nav.Link href="/LETSGO">LETS FUCKING GO 🔊</Nav.Link>
-            <Nav.Link href="ts3server://vs20.tserverhq.com/?port=9008">
-              <Button size="sm" variant="danger">
-                TEAMSPEAK
-              </Button>
-            </Nav.Link>
-            <Nav.Link>
-              <Timetest />
-            </Nav.Link>
+              <Nav.Link href="/reactlist">reactList</Nav.Link>
+              <Nav.Link href="/LETSGO">LETS FUCKING GO 🔊</Nav.Link>
+              <Nav.Link href="ts3server://vs20.tserverhq.com/?port=9008">
+                <Button size="sm" variant="danger">
+                  TEAMSPEAK
+                </Button>
+              </Nav.Link>
+              <Nav.Link>
+                <Timetest />
+              </Nav.Link>
+            </Navbar.Collapse>
           </Nav>
         </Navbar>
       </>
