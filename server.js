@@ -16,21 +16,25 @@ const mongoUri =
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: true,
 });
 //check connection
 mongoose.connection.on("connected", () => {
   console.log("MongoDB Connected!");
 });
 
+mongoose.set("useFindAndModify", false);
+
 app.use(express.static("./client/build/"));
 
 // rate limiter for posts
-const rateLimit = require("express-rate-limit");
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1,
-});
-app.use("/api/createpost", apiLimiter);
+// const rateLimit = require("express-rate-limit");
+// const apiLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 1,
+// });
+// app.use("/api/createpost", apiLimiter);
 
 //HTTP request logger
 app.use(morgan("tiny"));

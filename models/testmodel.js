@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 //Schematic for data models
 const Schema = mongoose.Schema;
-const newPostSchema = new Schema({
+const newTestModel = new Schema({
   imageURL: String,
   forumBody: String,
   forumId: String,
@@ -13,9 +13,9 @@ const newPostSchema = new Schema({
 });
 
 //model = mongoose.model(<name of model>. <schematic for model>)
-const ForumPost = new mongoose.model("ForumPost", newPostSchema);
+const TestModel = new mongoose.model("TestModel", newTestModel);
 
-module.exports = ForumPost;
+module.exports = TestModel;
 
 //saving data to mongo data base.
 // const forumData = {

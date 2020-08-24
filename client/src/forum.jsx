@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Navbar from "./navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import ForumComment from "./forum-comment";
 
 class forum extends Component {
   constructor(props) {
@@ -17,6 +18,11 @@ class forum extends Component {
       imageURL: "",
       forumBody: "",
       forumId: "",
+
+      comments: {
+        comURL: "",
+        comBody: "",
+      },
 
       recievedFormData: [],
     };
@@ -44,14 +50,23 @@ class forum extends Component {
   submitHandler = async (event) => {
     event.preventDefault();
 
-    const { imageURL, forumBody, forumId } = this.state;
+    const {
+      imageURL,
+      forumBody,
+      forumId,
+      comments: { comURL, comBody },
+    } = this.state;
 
     const forumPostData = {
       imageURL,
       forumBody,
       forumId,
+      comments: {
+        comURL,
+        comBody,
+      },
     };
-
+    console.log(forumPostData);
     await axios
       .post("/api/createpost", forumPostData)
       .then(() => alert("post submitted!"))
@@ -73,9 +88,14 @@ class forum extends Component {
     return posts.map((post, index) => (
       <Row md="auto" id="posts">
         <div key={index}>
+          {/* main post */}
           <h3>anon # {post.forumId}: </h3>
           <img src={post.imageURL} alt={post.forumId} />
           <p>{post.forumBody}</p>
+          {/* comments */}
+          <div>
+            <ForumComment anon={post._id} />
+          </div>
         </div>
       </Row>
     ));
