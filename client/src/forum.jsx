@@ -9,6 +9,7 @@ import Navbar from "./navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ForumComment from "./forum-comment";
+import RenderComments from "./render-comments";
 
 class forum extends Component {
   constructor(props) {
@@ -85,16 +86,26 @@ class forum extends Component {
 
   renderPosts = (posts) => {
     if (!posts.length) return null;
-    return posts.map((post, index) => (
+    return posts.reverse().map((post, index) => (
       <Row md="auto" id="posts">
         <div key={index}>
           {/* main post */}
           <h3>anon # {post.forumId}: </h3>
           <img src={post.imageURL} alt={post.forumId} />
-          <p>{post.forumBody}</p>
+          <p>
+            <span>{post.forumBody}</span>
+          </p>
           {/* comments */}
           <div>
-            <ForumComment anon={post._id} />
+            <ForumComment anon={post._id} forumId={post.forumId} />
+          </div>
+          <div>
+            <div>
+              <RenderComments
+                commentData={this.state.recievedFormData[index].comments}
+                op_id={this.state.recievedFormData[index]}
+              />
+            </div>
           </div>
         </div>
       </Row>

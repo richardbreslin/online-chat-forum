@@ -17,9 +17,10 @@
   background-color: red;
   color: white;
 }
-#maincol2 p {
+#maincol2 p span {
   background-color: black;
   color: white;
+  position: relative;
 }
 
 #posts {
@@ -30,4 +31,12 @@
 
 #formtext {
   font-weight: bold;
+}
+
+#comments {
+  max-width: 55%;
+  max-height: 55%;
+  position: relative;
+  left: 50px;
+  padding-top: 15px;
 }
