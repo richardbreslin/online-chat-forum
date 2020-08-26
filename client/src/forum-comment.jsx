@@ -40,7 +40,6 @@ class ForumComment extends Component {
         console.log(error);
         this.alertHandler("danger");
       });
-    window.location.reload(false);
   };
 
   handleInputChange = (event) => {

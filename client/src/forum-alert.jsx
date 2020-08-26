@@ -22,7 +22,11 @@ class ForumAlert extends Component {
       return (
         <div>
           <Alert.Heading> Real Trap Shit! </Alert.Heading>
-          <p> yo shit posted homie! ay u tryna run 2k?</p>
+          <p>
+            {" "}
+            yo shit posted homie! ay u tryna run 2k? (might wanna refresh if
+            this is a comment. will fix soon ;) )
+          </p>
         </div>
       );
     } else {
