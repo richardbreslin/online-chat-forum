@@ -28,13 +28,17 @@ mongoose.set("useFindAndModify", false);
 
 app.use(express.static("./client/build/"));
 
-// rate limiter for posts
-// const rateLimit = require("express-rate-limit");
-// const apiLimiter = rateLimit({
-//   windowMs: 15 * 60 * 1000, // 15 minutes
-//   max: 1,
-// });
-// app.use("/api/createpost", apiLimiter);
+const rateLimit = require("express-rate-limit");
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1,
+});
+const replyLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 1,
+});
+app.use("/api/createpost", apiLimiter);
+app.use("/api/reply", replyLimiter);
 
 //HTTP request logger
 app.use(morgan("tiny"));
