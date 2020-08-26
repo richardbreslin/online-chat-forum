@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ForumComment from "./forum-comment";
 import RenderComments from "./render-comments";
+import ForumAlert from "./forum-alert";
 
 class forum extends Component {
   constructor(props) {
@@ -19,18 +20,24 @@ class forum extends Component {
       imageURL: "",
       forumBody: "",
       forumId: "",
-
+      alert: {
+        show: false,
+        type: "",
+      },
       comments: {
         comURL: "",
         comBody: "",
       },
-
       recievedFormData: [],
     };
   }
 
   componentDidMount = () => {
     this.getHandler();
+  };
+
+  alertHandler = (typeIn) => {
+    this.setState({ alert: { type: typeIn, show: true } });
   };
 
   getHandler = () => {
@@ -44,11 +51,11 @@ class forum extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert("Error retriving data!");
+        this.alertHandler("danger");
       });
   };
 
-  submitHandler = async (event) => {
+  submitHandler = (event) => {
     event.preventDefault();
 
     const {
@@ -68,13 +75,16 @@ class forum extends Component {
       },
     };
     console.log(forumPostData);
-    await axios
+    axios
       .post("/api/createpost", forumPostData)
-      .then(() => alert("post submitted!"))
+      .then(() => console.log("success posting"))
       .catch((error) => {
+        this.alertHandler("danger");
         console.log(error);
       });
-    await window.location.reload(false);
+
+    this.alertHandler("success");
+    this.getHandler();
   };
 
   handleInputChange = (event) => {
@@ -116,10 +126,13 @@ class forum extends Component {
     return (
       <div className="forum">
         <Navbar />
-
         <Container>
           <Row>
             <Col md id="maincol">
+              {this.state.alert.show ? (
+                <ForumAlert type={this.state.alert.type} />
+              ) : null}
+
               <Form onSubmit={this.submitHandler} href="/createpost">
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label id="formtext">
