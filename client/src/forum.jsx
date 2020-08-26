@@ -77,7 +77,7 @@ class forum extends Component {
     console.log(forumPostData);
     axios
       .post("/api/createpost", forumPostData)
-      .then(() => console.log("success posting"))
+      .then(() => this.getHandler())
       .catch((error) => {
         this.alertHandler("danger");
         console.log(error);
