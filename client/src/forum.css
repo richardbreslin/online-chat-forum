@@ -14,7 +14,7 @@
   border-style: double;
 }
 #maincol2 h3 {
-  background-color: red;
+  background-image: linear-gradient(to right, black, red);
   color: white;
 }
 #maincol2 p span {
