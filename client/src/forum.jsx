@@ -132,7 +132,6 @@ class forum extends Component {
               {this.state.alert.show ? (
                 <ForumAlert type={this.state.alert.type} />
               ) : null}
-
               <Form onSubmit={this.submitHandler} href="/createpost">
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label id="formtext">
