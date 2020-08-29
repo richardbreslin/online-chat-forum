@@ -40,3 +40,12 @@
   left: 50px;
   padding-top: 15px;
 }
+
+.inline-errormsg {
+  color: red;
+  font-size: 12px;
+}
+
+.hidden {
+  visibility: hidden;
+}
