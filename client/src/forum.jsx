@@ -29,6 +29,7 @@ class forum extends Component {
         comBody: "",
       },
       recievedFormData: [],
+      errors: [],
     };
   }
 
@@ -38,6 +39,10 @@ class forum extends Component {
 
   alertHandler = (typeIn) => {
     this.setState({ alert: { type: typeIn, show: true } });
+  };
+
+  hasError = (key) => {
+    return this.state.errors.indexOf(key) !== -1;
   };
 
   getHandler = () => {
@@ -58,33 +63,56 @@ class forum extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
-    const {
-      imageURL,
-      forumBody,
-      forumId,
-      comments: { comURL, comBody },
-    } = this.state;
+    var errors = [];
 
-    const forumPostData = {
-      imageURL,
-      forumBody,
-      forumId,
-      comments: {
-        comURL,
-        comBody,
-      },
-    };
-    console.log(forumPostData);
-    axios
-      .post("/api/createpost", forumPostData)
-      .then(() => this.getHandler())
-      .catch((error) => {
-        this.alertHandler("danger");
-        console.log(error);
+    var linkExpression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+    var linkIsValid = new RegExp(linkExpression);
+
+    if (!this.state.imageURL.match(linkIsValid)) {
+      errors.push("imageURL");
+      this.setState({
+        errors: errors,
       });
+    }
+    if (this.state.forumBody === "") {
+      errors.push("forumBody");
+      this.setState({
+        errors: errors,
+      });
+    }
 
-    this.alertHandler("success");
-    this.getHandler();
+    if (errors.length > 0) {
+      this.alertHandler("danger");
+      return false;
+    } else {
+      const {
+        imageURL,
+        forumBody,
+        forumId,
+        comments: { comURL, comBody },
+      } = this.state;
+
+      const forumPostData = {
+        imageURL,
+        forumBody,
+        forumId,
+        comments: {
+          comURL,
+          comBody,
+        },
+      };
+      console.log(forumPostData);
+      axios
+        .post("/api/createpost", forumPostData)
+        .then(() => this.getHandler())
+        .catch((error) => {
+          this.alertHandler("danger");
+          console.log(error);
+        });
+
+      this.alertHandler("success");
+      this.getHandler();
+    }
   };
 
   handleInputChange = (event) => {
@@ -142,7 +170,20 @@ class forum extends Component {
                     placeholder="imgur.com/pokimane.png"
                     name="imageURL"
                     onChange={this.handleInputChange}
+                    value={this.state.imageURL}
+                    className={
+                      this.hasError("imageURL")
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                   />
+                  <div
+                    className={
+                      this.hasError("imageURL") ? "inline-errormsg" : "hidden"
+                    }
+                  >
+                    rightclick -> copy image address. it aint that hard buddy
+                  </div>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Label id="formtext">Write here</Form.Label>
@@ -152,7 +193,20 @@ class forum extends Component {
                     rows="3"
                     name="forumBody"
                     onChange={this.handleInputChange}
+                    className={
+                      this.hasError("forumBody")
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    value={this.state.forumBody}
                   />
+                  <div
+                    className={
+                      this.hasError("forumBody") ? "inline-errormsg" : "hidden"
+                    }
+                  >
+                    You can think of something to write...
+                  </div>
                 </Form.Group>
                 <Button variant="danger" type="submit">
                   SUBMIT
