@@ -1,1 +1,1 @@
-badsquad.org
+www.badsquad.org
