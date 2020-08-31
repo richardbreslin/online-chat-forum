@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import axios from "axios";
 import "./forum.css";
 
@@ -8,9 +8,10 @@ import Col from "react-bootstrap/Col";
 import Navbar from "./navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ForumComment from "./forum-comment";
-import RenderComments from "./render-comments";
 import ForumAlert from "./forum-alert";
+import Spinner from "react-bootstrap/Spinner";
+
+const RenderPosts = lazy(() => import("./render-posts"));
 
 class forum extends Component {
   constructor(props) {
@@ -122,34 +123,6 @@ class forum extends Component {
     });
   };
 
-  renderPosts = (posts) => {
-    if (!posts.length) return null;
-    return posts.reverse().map((post, index) => (
-      <Row md="auto" id="posts">
-        <div key={index}>
-          {/* main post */}
-          <h3>anon # {post.forumId}: </h3>
-          <img src={post.imageURL} alt={post.forumId} />
-          <p>
-            <span>{post.forumBody}</span>
-          </p>
-          {/* comments */}
-          <div>
-            <ForumComment anon={post._id} forumId={post.forumId} />
-          </div>
-          <div>
-            <div>
-              <RenderComments
-                commentData={this.state.recievedFormData[index].comments}
-                op_id={this.state.recievedFormData[index]}
-              />
-            </div>
-          </div>
-        </div>
-      </Row>
-    ));
-  };
-
   render() {
     return (
       <div className="forum">
@@ -218,8 +191,17 @@ class forum extends Component {
             </Col>
           </Row>
           <Row>
+            {/* lazy loading here */}
             <Col md id="maincol2">
-              <div>{this.renderPosts(this.state.recievedFormData)}</div>
+              <Suspense
+                fallback={
+                  <Spinner animation="border" variant="danger">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
+                }
+              >
+                <RenderPosts recievedFormData={this.state.recievedFormData} />
+              </Suspense>
             </Col>
           </Row>
         </Container>
