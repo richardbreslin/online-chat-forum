@@ -1,18 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-
 const app = express();
-
 const routes = require("./routes/api");
+
+require("dotenv").config();
+const mongoUri = process.env.MONGO_URI;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const mongoUri =
-  "mongodb+srv://richie:richie123@bscluster.uose7.azure.mongodb.net/<dbname>?retryWrites=true&w=majority";
-
-//connect to mongoDB atlas
+//connect to mongoDB
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -28,6 +26,7 @@ mongoose.set("useFindAndModify", false);
 
 app.use(express.static("./client/build/"));
 
+// LIMITER
 const rateLimit = require("express-rate-limit");
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -50,5 +49,13 @@ app.get("/*", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3001;
+switch (process.env.NODE_ENV) {
+  case "dev":
+    var PORT = process.env.DEV_PORT;
+    break;
+  case "prod":
+    var PORT = process.env.PROD_PORT;
+    break;
+}
+
 app.listen(PORT, console.log(`Server listening on port: ${PORT}`));
