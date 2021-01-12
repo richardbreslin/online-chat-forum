@@ -1,2 +1,2 @@
 Live Demo: 
-www.badsquad.org
+https://badsquad.r1ch.dev
