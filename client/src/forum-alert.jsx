@@ -13,19 +13,18 @@ class ForumAlert extends Component {
     if (this.props.type === "danger") {
       return (
         <div>
-          <Alert.Heading> nah dawg this aint it. </Alert.Heading>
-          <p> sumn ain right G. sitcha ass back down n try again.</p>
+          <Alert.Heading>Error</Alert.Heading>
+          <p> Somthing went wrong</p>
         </div>
       );
     }
     if (this.props.type === "success") {
       return (
         <div>
-          <Alert.Heading> Real Trap Shit! </Alert.Heading>
+          <Alert.Heading> Success</Alert.Heading>
           <p>
             {" "}
-            yo shit posted homie! ay u tryna run 2k? (might wanna refresh if
-            this is a comment. will fix soon ;) )
+            Posted!
           </p>
         </div>
       );
