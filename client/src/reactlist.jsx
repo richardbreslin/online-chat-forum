@@ -54,7 +54,6 @@ class Reactlist extends Component {
             <h1 className="header">
               Simple Todo list using <img src="favicon.ico"></img>
             </h1>
-            <p>this page is purely for reference on this react horse shit :)</p>
           </Jumbotron>
 
           <div>
